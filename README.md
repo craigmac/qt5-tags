@@ -1,5 +1,6 @@
 # Qt 5.12.3 Exuberant CTags tag files
 
+## Description
 This repo contains 'tags' files for use with Vim editor >7.0 (will not work with
 Emacs and probably others).
 
@@ -8,6 +9,13 @@ files these headers are represented by having the line:
 
 `QT += core gui multimedia network widgets`
 
+## Requirements
+
+*  Vim 7.0+
+*  in your .vimrc: `set ignorecase`, used for speedier lookup based on how tags
+   files were built (using 'foldcase' option).
+
+## Using the files
 To include specific tag file in your Vim session, copy this repo locally and
 from inside vim, add to the 'tags' option the paths to the additional tag files
 you'd like to use. For example let's say I download the repo to
@@ -55,4 +63,21 @@ set path+=C:/Qt/Tools/mingw730_32/i686-w64-mingw32/include
 set tags=./tags;,./lib-tags/qtcore,./lib-tags/qtgui,./lib-tags/qtmultimedia,./lib-tags/qtwidgets
 ```
 
+## Tag generation
 
+Tags files were created using CTags 5.8 on Windows 7, with the following
+options in ctags.cnf:
+
+```
+--recurse
+--c++-kinds=+p-d
+--fields=+iaSK
+--extra=+q
+--sort=foldcase
+--tag-relative
+```
+
+Options were set based on required settings to use with OmniCppComplete.vim
+plugin, however others were also added like tag-relative and foldcase. Foldcase
+enables much faster tag lookup when using in conjunction with Vim `:set
+ignorecase` in your .vimrc.
